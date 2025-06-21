@@ -19,20 +19,17 @@ def trial_removal(levels):
 
     # Iterate through each level
     for level in levels:
-        found = False
-
         # Check level validity without removal
         if (calculate_validity(level)) == True:
             valid_levels_count += 1
-            found = True
+            continue # Skip to next level
         
         # Check level validity removing one value at a time
         for i in range(len(level)):
-            if not found:
                 new_list = level[:i] + level[i+1:]
                 if (calculate_validity(new_list)) == True:
                     valid_levels_count += 1
-                    found = True
+                    break # Break to next level
 
     return valid_levels_count
 
