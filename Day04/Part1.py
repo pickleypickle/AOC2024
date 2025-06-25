@@ -8,17 +8,20 @@ def read_input(filename):
         for row in reader:
             text_list.extend(row)
     return text_list
+
+def count_XMAS(text):
+    return text.count("XMAS") + text.count("SAMX")
     
 def word_search(data):
     # Loop through each row and count occurences of "XMAS" frontwards and backwards
     count = 0
     for line in data:
-        count += line.count("XMAS") + line.count("SAMX")
+        count += count_XMAS(line)
     
     # Add vertical occurences through columns
     for col in range(len(data[0])):
         column_text = ''.join(line[col] for line in data)
-        count += column_text.count("XMAS") + column_text.count("SAMX")
+        count += count_XMAS(column_text)
 
     # Add diagonal occurences top left to bottom right
     # Start from the bottom left corner and move diagonally up-right
@@ -38,7 +41,7 @@ def word_search(data):
                     # Add next character in the diagonal
                     diagonal_line += data[row+i][col+i]
 
-            count += diagonal_line.count("XMAS") + diagonal_line.count("SAMX")
+            count += count_XMAS(diagonal_line)
 
             # Move upwards until the top row, then right until the last column
             if row > 0:
@@ -64,14 +67,13 @@ def word_search(data):
                     # Add next character in the diagonal
                     diagonal_line += data[row+i][col-i]
 
-            count += diagonal_line.count("XMAS") + diagonal_line.count("SAMX")
+            count += count_XMAS(diagonal_line)
 
             # Move upwards until the top row, then right until the last column
             if row > 0:
                 row -= 1
             else:
                 col -= 1
-
 
     return count
     
